@@ -1,1 +1,22 @@
-﻿广泛
+﻿### 关于artTemplate的engine。
+1。 指定以.html结尾的文件使用的解析引擎。  app.engine(".html", template.__express)；
+2。 指定使用html视图引擎。  app.set("view engine", "html")；
+3。 访问引擎指定的文件夹，需要看请求指定的路径。
+## 实例
+	app.get("/engine", (req, res) => {
+    var data = {
+        title: "服务器端模板数据2",
+        books: [
+            {
+                name: "重构-改善既有代码的设计2"
+            },
+            {
+                name: "大话设计模式2"
+            }
+        ]
+    }
+    res.render("page", data)
+})
+>     *通过127.0.0.1:3000/engine访问，服务端会去views文件夹下找所需文件。而不是直接引用同级目录下的文件*
+
+
