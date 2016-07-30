@@ -24,7 +24,7 @@
         ]
     }
     res.render("page", data)
-})
+	})
 **通过127.0.0.1:3000/engine访问，127.0.0.1:3000不可访问。服务端会去views文件夹下找所需文件。而不是直接引用同级目录下的文件**
 
 ## addition one
@@ -36,6 +36,15 @@
     res.render("page", data)；
 	//渲染，呈现视图，第一个参数指定视图文件名，第二参数是携带的数据
 
+## addition two
+
+### serialize()
+1. serialize() 方法通过序列化表单值，创建 URL 编码文本字符串。
+2. 您可以选择一个或多个表单元素（比如 input 及/或 文本框），或者 form 元素本身。
+3. 序列化的值可在生成 AJAX 请求时用于 URL 查询字符串中。
+
+	
+	
 # question 2
 
 ## express-middleware：中间件。app.use()
