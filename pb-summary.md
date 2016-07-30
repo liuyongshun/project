@@ -1,9 +1,9 @@
 ﻿# question 1
 ## 关于artTemplate的engine。
 
-1。 指定以.html结尾的文件使用的解析引擎。  app.engine(".html", template.__express)；
-2。 指定使用html视图引擎。  app.set("view engine", "html")；
-3。 访问引擎指定的文件夹，需要看请求指定的路径。
+1. 指定以.html结尾的文件使用的解析引擎。  app.engine(".html", template.__express)；
+2. 指定使用html视图引擎。  app.set("view engine", "html")；
+3. 访问引擎指定的文件夹，需要看请求指定的路径。
 
 ### 实例：
 
@@ -31,7 +31,7 @@
 
 ### 判断读取views文件夹的内容，还是读取www文件夹的内容。
 
-1。 在使用express模块，渲染的页面默认情况下会在一个叫views文件夹中找。
+1. 在使用express模块，渲染的页面默认情况下会在一个叫views文件夹中找。
 	代码：	 
     res.render("page", data)；
 	//渲染，呈现视图，第一个参数指定视图文件名，第二参数是携带的数据
@@ -57,8 +57,8 @@
 
 监听3000端口时。初次加载的页面。
 
-1。可以是这种方式app.get( "/", callback )指定。app.get属于哪个html，就加载哪个。
-2。也可以用指定静态文件的方式app.use(express.static(filename))，静态文件的方式会找到文件内index.html。没有index.html不行。
+1. 可以是这种方式app.get( "/", callback )指定。app.get属于哪个html，就加载哪个。
+2. 也可以用指定静态文件的方式app.use(express.static(filename))，静态文件的方式会找到文件内index.html。没有index.html不行。
 
 
 
