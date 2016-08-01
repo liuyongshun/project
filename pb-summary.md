@@ -86,3 +86,6 @@ callback:载入成功时回调函数。
 
 # question 5
 
+### express：完整的路由。
+*路由是由一个 URI、HTTP 请求（GET、POST等）和若干个句柄组成。结构：app.METHOD(path, [callback...], callback)。---- app 是 express 对象的一个实例， METHOD 是一个 HTTP 请求方法， path 是服务器上的路径， callback 是当路由匹配时要执行的函数。*
+
