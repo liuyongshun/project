@@ -34,7 +34,10 @@
 1. 在使用express模块，渲染的页面默认情况下会在一个叫views文件夹中找。
 	代码：	 
     res.render("page", data)；
-	//渲染，呈现视图，第一个参数指定视图文件名，第二参数是携带的数据
+	//渲染，呈现视图，第一个参数指定视图文件名，第二参数是携带的数据。
+	如果用res.send()
+	将要访问express.static(www)内的文件夹。
+*console.log('Request URL:', req.originalUrl);可以查看打开的路径是那个。从而判断打开的是views还是www内的文件*
 
 ## addition two
 
