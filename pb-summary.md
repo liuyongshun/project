@@ -88,4 +88,22 @@ callback:载入成功时回调函数。
 
 ### express：完整的路由。
 *路由是由一个 URI、HTTP 请求（GET、POST等）和若干个句柄组成。结构：app.METHOD(path, [callback...], callback)。---- app 是 express 对象的一个实例， METHOD 是一个 HTTP 请求方法， path 是服务器上的路径， callback 是当路由匹配时要执行的函数。*
+### 句柄：
+一个句柄是指使用的一个唯一的整数值，即一个4字节(64位程序中为8字节)长的数值，来标识应用程序中的不同对象和同类中的不同的实例。类似指针但不是指针。（路由中的回调函数就是句柄）。
+*路由句柄：可以为请求处理提供多个回调函数，其行为类似 中间件*
 
+
+
+# question 6
+
+### response响应方法。
+
+    res.download() 	提示下载文件。
+	res.end() 	终结响应处理流程。
+	res.json() 	发送一个 JSON 格式的响应。
+	res.jsonp() 	发送一个支持 JSONP 的 JSON 格式的响应。
+	res.redirect() 	重定向请求。
+	res.render() 	渲染视图模板。
+	res.send() 	发送各种类型的响应。
+	res.sendFile 	以八位字节流的形式发送文件。
+	res.sendStatus() 	设置响应状态代码，并将其以字符串形式作为响应体的一部分发送。
