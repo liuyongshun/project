@@ -60,7 +60,11 @@
     console.log('Time:', Date.now());
     next();
     });
-
+	//下边是挂载路径的情况。凡是有/user/:id的请求都会触发。下边的回调。
+	app.use('/user/:id', function (req, res, next) {
+    console.log('Request Type:', req.method);
+    next();
+    });
 
 	
 # question 3	
@@ -90,6 +94,7 @@ callback:载入成功时回调函数。
 # question 5
 
 ### express：完整的路由。
+
 *路由是由一个 URI、HTTP 请求（GET、POST等）和若干个句柄组成。结构：app.METHOD(path, [callback...], callback)。---- app 是 express 对象的一个实例， METHOD 是一个 HTTP 请求方法， path 是服务器上的路径， callback 是当路由匹配时要执行的函数。*
 ### 句柄：
 一个句柄是指使用的一个唯一的整数值，即一个4字节(64位程序中为8字节)长的数值，来标识应用程序中的不同对象和同类中的不同的实例。类似指针但不是指针。（路由中的回调函数就是句柄）。
@@ -110,3 +115,57 @@ callback:载入成功时回调函数。
 	res.send() 	发送各种类型的响应。
 	res.sendFile 	以八位字节流的形式发送文件。
 	res.sendStatus() 	设置响应状态代码，并将其以字符串形式作为响应体的一部分发送。
+	
+
+# question 7
+
+### express应用生成器。
+
+** 能够帮助自己快速创建express包。一个空的模版 **
+
+	step1（步骤）:
+	$ npm install express-generator -g
+	notice(注意):
+	$ express -h
+	step2:
+	$ express myapp  创建myapp的应用（一个模版文件夹）
+	step3:
+	$ cd myapp       进入myapp
+	$ npm install    安装依赖包
+	step4:
+	> set DEBUG=myapp & npm start   //windows输入该命令启动。
+	
+
+# 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
