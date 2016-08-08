@@ -1,0 +1,76 @@
+/*表单登录*/
+.mar {
+    margin-top: 70px;
+}
+.left {
+    padding: 7px;
+}
+.left>img:first-child {
+    transform: rotate(2deg);
+}
+.left>img:last-child {
+    transform: rotate(-4deg);
+}
+.center>p {
+    letter-spacing: 10px;
+    padding: 10px 0;
+}
+.two-dimnsion {
+    width: 150px;
+    height: 35px;
+}
+.two-dimnsion>span {
+    display: inline-block;
+    width: 100px;
+    height: 30px;
+    padding: 4px 0;
+    text-align: center;
+    background-color: green;
+    border-radius: 4px;
+}
+.two-d span {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background-image: url(../../image/two.png);
+    background-size: contain;
+    vertical-align: middle;
+}
+.self {
+    background-size: cover;
+    background-image: url(../../image/bg.png);
+}
+.item {
+    margin: 10px auto;
+}
+.item>input {
+    width: 200px;
+    height: 30px;
+}
+[type=button] {
+    border: 2px solid green;
+    float: right;
+}
+[type=submit] {
+    background-color: lightseagreen;
+}
+.ad {
+    margin-top: 40px;
+}
+.ad>img {
+    width: 100%;
+    height: 100%;
+}
+
+
+/*主要内容*/
+.main-ct ul {
+    list-style: none;
+}
+.main-ct ul li {
+    margin-top: 10px;
+}
+.main-ct,.main-rg {
+    margin-top: 40px;
+     align-self: flex-start;
+}

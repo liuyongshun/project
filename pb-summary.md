@@ -1,14 +1,16 @@
 ﻿# question 1
-## 关于artTemplate的engine。
+
+### 关于artTemplate的engine。
 
 1. 指定以.html结尾的文件使用的解析引擎。  app.engine(".html", template.__express)；
 2. 指定使用html视图引擎。  app.set("view engine", "html")；
-3. 访问引擎指定的文件夹，需要看请求指定的路径。
+3. 访问引擎指定的文件夹views，需要看响应是send还是render。send默认进入（www文件夹找index.html），render默认进入views。
 
 ### 实例：
-
+	
 	template.config("cache", false)
 	//是否启用缓存。
+	app.use( express.static( "www" ) )
 	app.set("view engine", "html")；
 	app.engine(".html", template.__express)；
 	app.get("/engine", (req, res) => {
@@ -23,57 +25,81 @@
             }
         ]
     }
+	//渲染，呈现视图，第一个参数指定视图文件名，第二参数是携带的数据。
     res.render("page", data)
-	})
-**通过127.0.0.1:3000/engine访问，127.0.0.1:3000不可访问。服务端会去views文件夹下找所需文件。而不是直接引用同级目录下的文件**
+	});
+	
+**1.通过127.0.0.1:3000/engine访问，会进入views找.html文件。通过127.0.0.1:3000访问会进入www文件夹找index.html文件。**
+
+**2.console.log('Request URL:', req.originalUrl);可以查看打开的路径是那个。从而判断打开的是views还是www内的文件。**
 
 ## addition one
 
-### 判断读取views文件夹的内容，还是读取www文件夹的内容。
-
-1. 在使用express模块，渲染的页面默认情况下会在一个叫views文件夹中找。
-	代码：	 
-    res.render("page", data)；
-	//渲染，呈现视图，第一个参数指定视图文件名，第二参数是携带的数据。
-	如果用res.send()
-	将要访问express.static(www)内的文件夹。
-*console.log('Request URL:', req.originalUrl);可以查看打开的路径是那个。从而判断打开的是views还是www内的文件*
-
-## addition two
-
 ### serialize()
+
 1. serialize() 方法通过序列化表单值，创建 URL 编码文本字符串。
+
 2. 您可以选择一个或多个表单元素（比如 input 及/或 文本框），或者 form 元素本身。
+
 3. 序列化的值可在生成 AJAX 请求时用于 URL 查询字符串中。
 
 	
 	
 # question 2
 
-## express-middleware：中间件。app.use()
+### express-middleware：中间件。app.use()
 
 *是一个函数，它可以访问请求对象（request object (req)）, 响应对象（response object (res)）, 和 web 应用中处于请求-响应循环流程中的中间件，一般被命名为 next 的变量。*
     
 	var app = express();    
     // 没有挂载路径的中间件，应用的每个请求都会执行该中间件。
     app.use(function (req, res, next) {
-    console.log('Time:', Date.now());
-    next();
+		console.log('Time:', Date.now());
+		next();
     });
-	//下边是挂载路径的情况。凡是有/user/:id的请求都会触发。下边的回调。
+	//下边是挂载路径的情况。凡是有/user/:id的请求都会触发。下边的回调。（该方法会按照流从上到下找到合适的遍执行，会阻断下边的执行。）
 	app.use('/user/:id', function (req, res, next) {
-    console.log('Request Type:', req.method);
-    next();
+		console.log('Request Type:', req.method);
+		next();
     });
 
 	
 # question 3	
 
-## 127.0.0.1:3000 （注意3000后面没有别的。单单访问3000）。
+### 127.0.0.1:3000 （注意3000后面没有别的。单单访问3000）。
 
 监听3000端口时。初次加载的页面。
 
-1. 可以是这种方式app.get( "/", callback )指定。app.get属于哪个html，就加载哪个。
+1. 可以是这种方式app.get( "/", callback )指定。如果没有app.use( express.static( "www" ) )。只会发送“success”数据，而不加载页面。即使index.html的form设置为<form action="/" method="GET">。
+
+	### app.js代码：
+	
+	const express = require( "express" ),
+          app = express()
+	// app.use( express.static( "www" ) )
+	app.get( "/", function( req, res ) {
+		console.log( 2 )
+		res.send( "success" )
+	} )
+	app.listen( 3000, function() { 
+		console.log( "running" )
+	} )
+	
+	### index.html代码：
+	
+	<html>
+		<head>
+			<meta charset="utf-8">
+			<meta name="author" content="刘永顺">
+			<title></title>
+		</head>
+		<body>
+			<form action="">
+				<input type="submit">
+			</form>
+		</body>
+	</html>
+	
 2. 也可以用指定静态文件的方式app.use(express.static(filename))，静态文件的方式会找到文件内index.html。没有index.html不行。
 
 
@@ -95,7 +121,7 @@ callback:载入成功时回调函数。
 
 ### express：完整的路由。
 
-*路由是由一个 URI、HTTP 请求（GET、POST等）和若干个句柄组成。结构：app.METHOD(path, [callback...], callback)。---- app 是 express 对象的一个实例， METHOD 是一个 HTTP 请求方法， path 是服务器上的路径， callback 是当路由匹配时要执行的函数。*
+**路由是由一个 URI、HTTP 请求（GET、POST等）和若干个句柄组成。结构：app.METHOD(path, [callback...], callback)。---- app 是 express 对象的一个实例， METHOD 是一个 HTTP 请求方法， path 是服务器上的路径， callback 是当路由匹配时要执行的函数。**
 ### 句柄：
 一个句柄是指使用的一个唯一的整数值，即一个4字节(64位程序中为8字节)长的数值，来标识应用程序中的不同对象和同类中的不同的实例。类似指针但不是指针。（路由中的回调函数就是句柄）。
 *路由句柄：可以为请求处理提供多个回调函数，其行为类似 中间件*
@@ -121,7 +147,7 @@ callback:载入成功时回调函数。
 
 ### express应用生成器。
 
-** 能够帮助自己快速创建express包。一个空的模版 **
+**能够帮助自己快速创建express包。一个空的模版*
 
 	step1（步骤）:
 	$ npm install express-generator -g
@@ -136,7 +162,9 @@ callback:载入成功时回调函数。
 	> set DEBUG=myapp & npm start   //windows输入该命令启动。
 	
 
-# 
+# question 8
+
+### 
 
 
 
